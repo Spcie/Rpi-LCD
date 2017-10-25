@@ -1,6 +1,6 @@
 
-#include "hw_gpio.h"
-#include "hw_delay.h"
+#include "../hardware/hw_gpio.h"
+#include "../hardware/hw_delay.h"
 #include "soft_spi.h"
 
 
@@ -43,7 +43,7 @@ void soft_spi_setDC(unsigned char dc)
 
 void soft_spi_rest(unsigned char rest)
 {
-    if(dc)
+    if(rest)
     {
         bcm_gpio_set(RPI_GPIO_06);
     }else

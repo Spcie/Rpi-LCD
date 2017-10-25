@@ -98,12 +98,12 @@ static int lcd_init(void)
 
 
 
-	printk("loCtrl device installed\n");
+	printk("lcd device installed\n");
 	return 0;
 
 }
 
-static void IoCtrl_exit(void)
+static void lcd_exit(void)
 {
 	/*取消映射*/
 	//iounmap(bcm2835_gpio);

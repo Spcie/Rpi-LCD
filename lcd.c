@@ -1,8 +1,22 @@
+#include <linux/module.h>
+#include <linux/types.h>
+#include <linux/fs.h>
+#include <linux/errno.h>
+#include <linux/slab.h>
+#include <linux/mm.h>
+#include <linux/sched.h>
+#include <linux/init.h>
+#include <linux/cdev.h>
+#include <linux/slab.h>
+#include <asm/io.h>
+#include <linux/miscdevice.h>
+#include <asm/uaccess.h>
 
-#include "hw_gpio.h"
-#include "hw_spi.h"
-#include "hw_delay.h"
-#include "soft_spi.h"
+#include "./font/font.h"
+#include "./hardware/hw_gpio.h"
+#include "./hardware/hw_spi.h"
+#include "./hardware/hw_delay.h"
+#include "./sim/soft_spi.h"
 
 #define LCD_W	320
 #define LCD_H	240
@@ -56,7 +70,7 @@ static void LCD_SPI_unInit(void)
     bcm_gpio_fsel(RPI_GPIO_10, BCM_GPIO_FSEL_INPT);
     bcm_gpio_fsel(RPI_GPIO_11, BCM_GPIO_FSEL_INPT);
 
-    bcm_gpio_unint();
+    bcm_gpio_uninit();
     
  #else
     soft_spi_uninit();
@@ -76,7 +90,7 @@ static void LCD_Delay_ms(unsigned int ms)
 static void LCD_Delay_us(int us)
 {
 #ifdef HARDWARE_SPI     
-    bcm_st_delay_us(ms);
+    bcm_st_delay_us(us);
 #else
     soft_spi_delayUs(us);
 #endif
@@ -92,7 +106,7 @@ static void LCD_REST(unsigned char rest)
 static void LCD_WriteModeChoose(unsigned char mode)
 {
 #ifdef HARDWARE_SPI     
-    bcm_spi0_setDataMode(mode)
+    bcm_spi0_setDataMode(mode);
 #else
     soft_spi_setDC(mode);
 #endif
@@ -101,7 +115,7 @@ static void LCD_WriteModeChoose(unsigned char mode)
 static void LCD_WriteBus(unsigned char byte)
 {
 #ifdef HARDWARE_SPI     
-    bcm_spi0_write(byte, 1);
+    bcm_spi0_write(&byte, 1);
 #else
     soft_spi_wirteBus(byte);
 #endif

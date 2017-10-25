@@ -10,8 +10,6 @@ static unsigned int bcm_spi0_register_read_nb(unsigned int RegOfst);
 static unsigned int bcm_spi0_register_read(unsigned int RegOfst);
 static void bcm_spi0_set_bits(unsigned int RegOfst,unsigned int value,unsigned int mask);
 static void bcm_spi0_setClockDivider(unsigned int divider);
-static void bcm_spi0_setDataMode(unsigned int mode);
-static void bcm_spi0_chipSelect(unsigned int cs);
 static void bcm_spi_setChipSelectPolarity(unsigned int cs, unsigned int active);
 
 static void bcm_spi0_register_write_nb(unsigned int RegOfst,unsigned int value)
@@ -65,13 +63,13 @@ static void bcm_spi0_setClockDivider(unsigned int divider)
 	bcm_spi0_register_write(BCM_SPI0_CLK, divider);
 }
 
-static void bcm_spi0_setDataMode(unsigned int mode)
+void bcm_spi0_setDataMode(unsigned int mode)
 {
 	bcm_spi0_set_bits(BCM_SPI0_CS, mode << 2, BCM_SPI0_CS_CPOL | BCM_SPI0_CS_CPHA);
 }
 
 
-static void bcm_spi0_chipSelect(unsigned int cs)
+void bcm_spi0_chipSelect(unsigned int cs)
 {
 	bcm_spi0_set_bits(BCM_SPI0_CS, cs, BCM_SPI0_CS_CS);
 }

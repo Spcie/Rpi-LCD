@@ -86,6 +86,8 @@ typedef enum
 
 void bcm_spi_init(volatile unsigned int * peripherals_base);
 void bcm_spi_uninit(void);
+void bcm_spi0_setDataMode(unsigned int mode);
+void bcm_spi0_chipSelect(unsigned int cs);
 unsigned char bcm_spi0_transfer_byte(unsigned char data);
 void bcm_spi0_transfer(char* tbuf, char* rbuf, unsigned len);
 void bcm_spi0_write(unsigned char* tbuf, unsigned int len);

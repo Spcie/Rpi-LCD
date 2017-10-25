@@ -61,7 +61,7 @@ typedef enum
 } bcmFunctionSelect;
 
 int bcm_gpio_init(volatile unsigned int* peripherals_base);
-void bcm_gpio_unint(void);
+void bcm_gpio_uninit(void);
 void bcm_gpio_fsel(unsigned char pin, unsigned char mode);
 void bcm_gpio_set(unsigned char pin);
 void bcm_gpio_clr(unsigned char pin);

@@ -59,7 +59,7 @@ int bcm_gpio_init(volatile unsigned int* peripherals_base)
 	}
 }
 
-void bcm_gpio_unint(void)
+void bcm_gpio_uninit(void)
 {
 	bcm_gpio = 0x00000000;
 }
